@@ -23,6 +23,7 @@
 
 <script>
 import axios from 'axios';
+import { ref, onMounted } from 'vue';
 
 export default {
     data() {
@@ -38,7 +39,11 @@ export default {
             }
 
             console.log(newTeam)
-            axios.post('localhost:3000/api/addteams')
+            axios.post('http://localhost:3000/api/addteams', {
+                name : newTeam.team_name,
+                division : newTeam.division,
+                description : this.team.description
+            })
             .then((response) => {
                 console.log(response)
             })

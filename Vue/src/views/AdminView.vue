@@ -1,5 +1,22 @@
+<script setup>
+import TeamPost from '@/components/TeamPost.vue';
+import { ref } from 'vue'
+ 
+</script>
+
 <template>
-  <div class="admin">
-    <h1>This is an admin page</h1>
+
+
+  <div class="home">
+    <TeamPost />
   </div>
+
 </template>
+
+<style scoped>
+.events {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
