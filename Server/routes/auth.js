@@ -42,6 +42,9 @@ router.get('/logout', (req, res) => {
 router.post('/register', async (req, res) => {
   const { email, password, role } = req.body;
 
+  console.log('email: ' + email + ' Password: ' + password + ' Role: ' + role )
+
+
   try {
     const existingUser = await User.findOne({ email });
 
@@ -49,12 +52,12 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'User already exists.' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    //const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
-      email,
-      password: hashedPassword,
-      role
+      email : email,
+      password : password/*: password*/,
+      role : role || 'user'
     });
 
     await newUser.save();

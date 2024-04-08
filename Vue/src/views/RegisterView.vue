@@ -21,7 +21,7 @@
                 </div>
                 <div class="field">
                   
-                    <button type="submit" class="button is-primary" @click="addToAPI">Register</button>
+                    <button class="button is-primary" @click="addToAPI">Register</button>
                   
                 </div>
               </form>
@@ -44,22 +44,18 @@ export default {
         }
     }, methods: {
         addToAPI(){
-            let newUser = {
-                email : this.user.email,
-                password : this.user.password,
-            }
-            console.log(newUser);
+
             axios.post('http://localhost:3000/auth/register', {
-                email : newUser.email,
-                password : newUser.password,
-                role : 'user'
+                email : user.value.email,
+                password : user.value.password,
+                role : "user"
             })
 
             .then((response) => {
                 console.log(response.data)
             })
             .catch((error) => {
-                console.log(error)
+                console.error(error)
             })
 
         }
