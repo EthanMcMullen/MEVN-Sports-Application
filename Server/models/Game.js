@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 const gameSchema = new mongoose.Schema({
-    id: {
-        type: Number
-    },
+    id: { type: Number, unique: true },
     name: { // Sport Team Name (Basketball, Baseball, Volleyball)
         type: String,
         required: true,

@@ -2,7 +2,7 @@ const express = require('express'); ;
 const cors = require('cors'); ;
 const session = require('express-session');
 const bodyParser = require('body-parser'); ;
-const mongoose = require('mongoose'); ;
+const mongoose = require('mongoose'); 
 const Game = require('./models/Game');
 const Team = require('./models/Team');
 const passport = require('passport');
@@ -69,34 +69,29 @@ app.get('/api/games', async (req, res) => {
     }
 })
 
-app.get('/api/games/:id', async (req, res) => {
-    try {
-        const game = await Game.findById(req.params.id);
-        res.json(game);
-    } catch (err) {
-        res.status(500).json({ error: err.message })
-    }
-})
-
-app.get('/api/team/:name', async (req, res) => {
+app.get('/api/games/:id', async (req, res) => { // Returns a game by ID
+  console.log(req.params.id);
   try {
-      const game = await Game.findById(req.params.name);
+      const gameId = parseInt(req.params.id);
+      const game = await Game.findOne({id: gameId});
       res.json(game);
   } catch (err) {
-      res.status(500).json({ error: err.message })
+      res.status(500).json({ error: err.message });
   }
-})
+});
 
-app.get('/api/games/:team', async (req, res) => { // Returns all events with the same name as team
+app.get('/api/:teamname/games', async (req, res) => { // Returns all events with the same name as team
     try {
-        const game = await Game.find( {whatTeam: req.params('team')});
-        res.json(game);
+      const games = await Game.find({ name: req.params.teamname });
+      res.json(games);
     } catch (err) {
         res.status(500).json({ error: err.message })
     }
 })
 
-app.post('/api/games', isAuthenticated, hasPermission('admin'), async (req, res) => {
+
+
+app.post('/api/addgames', isAuthenticated, hasPermission('admin'), async (req, res) => {
     try {
         const game = new Game(req.body);
         await game.save();
@@ -106,7 +101,7 @@ app.post('/api/games', isAuthenticated, hasPermission('admin'), async (req, res)
     }
 })
 
-app.post('/api/teams', isAuthenticated, hasPermission('admin'), async (req, res) => {
+app.post('/api/addteams', isAuthenticated, hasPermission('admin'), async (req, res) => {
     try {
         const team = new team(req.body);
         await team.save();
@@ -117,7 +112,7 @@ app.post('/api/teams', isAuthenticated, hasPermission('admin'), async (req, res)
 })
 
 app.get('/login', (req, res) => {
-    res.send('This is the Login Page')
+    res.send('This is the Logiiiiin Page')
   });
   
   app.get('/dashboard', (req, res) => {
