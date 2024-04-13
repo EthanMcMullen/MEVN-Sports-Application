@@ -8,21 +8,16 @@
             <div class="box">
               <form>
                 <div class="field">
-                  <label for="email" class="label">Email</label>
-                  
-                    <input id="email" class="input" type="email" placeholder="Enter your email" required v-model="user.email">
-                  
+                  <label for="email" class="label">Email</label>   
+                  <input id="email" class="input" type="email" placeholder="Enter your email" v-model="user.email">
                 </div>
                 <div class="field">
-                  <label for="password" class="label">Password</label>
-                  
-                    <input id="password" class="input" type="password" placeholder="Enter your password" required v-model="user.password">
-                  
+                  <label for="password" class="label">Password</label>     
+                    <input id="password" class="input" type="password" placeholder="Enter your password" v-model="user.password">
                 </div>
                 <div class="field">
-                  
-                    <button class="button is-primary" @click="addToAPI">Register</button>
-                  
+                    <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Register</button>
+
                 </div>
               </form>
             </div>
@@ -43,22 +38,21 @@ export default {
             user : {email: '', password: ''}
         }
     }, methods: {
-        addToAPI(){
+      async addToAPI() {
 
-            axios.post('http://localhost:3000/auth/register', {
-                email : user.value.email,
-                password : user.value.password,
-                role : "user"
-            })
+        let newUser = {
+                email : this.user.email,
+                password : this.user.password,
+                role : 'user',
+            }
 
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-
-        }
+        const resp = await axios.post('http://localhost:3000/auth/register', newUser,
+      {
+        headers:{'Content-Type':'application/x-www-form-urlencoded'}
+      });
+        console.log(resp.data)
+      
+      }
     }
     
 }

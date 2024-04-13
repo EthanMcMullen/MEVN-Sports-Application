@@ -1,21 +1,17 @@
 const mongoose = require('mongoose');
 
 const gameSchema = new mongoose.Schema({
-    id: { type: Number, unique: true },
-    name: { // Sport Team Name (Basketball, Baseball, Volleyball)
+    id: { type: Number, unique: true, requited: true, },
+    name: { // School team name
         type: String,
         required: true,
     },
-    division: {
-        type: Number,
-        required: true,
-    },
     date: {
-        type: Number,
+        type: String,
         required: true,
     },
     time: {
-        type: Number,
+        type: String,
         required: true,
     },
     description: String,
@@ -27,7 +23,10 @@ const gameSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    additionalNotes: String,
+    league: {
+        type: String,
+        required: true,
+    }
 });
 
 const Game = mongoose.model('Game', gameSchema);

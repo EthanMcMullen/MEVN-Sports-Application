@@ -1,14 +1,29 @@
 <script setup>
 import TeamPost from '@/components/TeamPost.vue';
+import GamePost from '@/components/GamePost.vue';
+import LeaguePost from '@/components/LeaguePost.vue';
 import { ref } from 'vue'
- 
+
 </script>
 
 <template>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
 
   <div class="home">
+    <h1>Create New League?</h1>
+    <br>
+    <LeaguePost />
+    <br>
+    <br>
+    <h1>Create New Team?</h1>
+    <br>
     <TeamPost />
+    <br>
+    <br>
+    <h1>Create New Game?</h1>
+    <br>
+    <GamePost />
   </div>
 
 </template>

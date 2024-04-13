@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import('../components/TeamPost.vue')
     },
     {
+      path: '/admin/leagues',
+      name: 'addLeagues',
+      component: () => import('../components/LeaguePost.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       // route level code-splitting
