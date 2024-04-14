@@ -87,8 +87,9 @@
                 time: this.game.time,
                 location: this.game.location,
                 type: this.game.type,
-                opposingTeam: this.game.opposing_team,
-                league: this.game.league
+                opposingTeam: this.game.opposing_team || "No Team Provided",
+                league: this.game.league,
+                gameType: this.game.type
             };
 
         console.log(newGame);

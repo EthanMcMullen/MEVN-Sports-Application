@@ -10,6 +10,10 @@ const gameSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    gameType: {
+        type: String,
+        required: true,
+    },
     time: {
         type: String,
         required: true,
