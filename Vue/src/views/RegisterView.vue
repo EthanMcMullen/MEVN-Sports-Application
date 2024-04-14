@@ -16,8 +16,7 @@
                     <input id="password" class="input" type="password" placeholder="Enter your password" v-model="user.password">
                 </div>
                 <div class="field">
-                    <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Register</button>
-
+                  <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Register</button>
                 </div>
               </form>
             </div>
@@ -45,18 +44,17 @@ export default {
                 password : this.user.password,
                 role : 'user',
             }
-
-        const resp = await axios.post('http://localhost:3000/auth/register', newUser,
-      {
-        headers:{'Content-Type':'application/x-www-form-urlencoded'}
-      });
-        console.log(resp.data)
-      
-      }
+        console.log(newUser)
+        location.reload()
+          const resp = await axios.post('http://localhost:3000/auth/register', newUser,
+          {headers:{'Content-Type':'application/x-www-form-urlencoded'}});
+          console.log(resp.data)
+          this.$router.push('/login');
+          
     }
+  }
     
 }
 </script>
   
-
   

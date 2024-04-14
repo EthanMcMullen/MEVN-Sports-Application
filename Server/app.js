@@ -18,6 +18,7 @@ const generateSalt = require('./saltGenerator');
 require('./db');
 
 const app = express()
+
 const PORT = process.env.PORT || 3000;
 
 
@@ -35,6 +36,8 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 
 const isAuthenticated = (req, res, next) => {
+  console.log("authentication")
+  console.log(req.isAuthenticated)
   if (req.isAuthenticated()) {
     return next();
   }
@@ -42,7 +45,9 @@ const isAuthenticated = (req, res, next) => {
 };
 
 const hasPermission = (requiredRole) => {
+  console.log("permission")
   return (req, res, next) => {
+    console.log(req.user.role)
     if (req.user && req.user.role === requiredRole) {
       return next();
     }

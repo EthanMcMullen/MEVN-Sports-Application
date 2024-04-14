@@ -24,7 +24,7 @@ export default {
                 const token = resp.token;
                 // Decode the token to extract user information
                 const user = AuthService.decodeToken(token);
-
+                
                 // Upon successful authentication, commit the setUser mutation
                 commit('setUser', user);
 
@@ -44,6 +44,7 @@ export default {
             
             // Commit the clearUser mutation to reset the user state
             commit('clearUser');
+            console.log("User Logged Out")
         },
         rehydrateAuthenticationState({ commit }) {
             const token = localStorage.getItem('token');
