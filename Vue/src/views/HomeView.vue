@@ -103,7 +103,15 @@
             <p>Location: {{ selectedGame.location }}</p>
             <p>Description: {{ selectedGame.description }}</p>
             <p>Opposing Team: {{ selectedGame.opposingTeam }}</p>
+              
+            <div class="map">
+              
+            </div>
             <button class="button button-large full-width is-primary" type="button" @click="deleteGame(selectedGame)">Delete Game?</button>
+          <div>
+            <iframe width="100%" height="200" style="border:0" referrerpolicy="no-referrer-when-downgrade" :src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyC1J8rbjY3B-Y-dzoWU7jl6hAW4jAh-yRk&q=' + encodeURIComponent(selectedGame.location)" allowfullscreen></iframe>
+
+            </div>
           </div>
         </div>
       </div>
@@ -176,7 +184,7 @@ export default {
     },
     async deleteGame(deletedGame) {
       try {
-        const resp = await axios.delete(`http://localhost:3000/api/deletegames/${this.deletedGame.id}`);
+        const resp = await axios.delete(`http://localhost:3000/api/deletegames/${deletedGame.id}`);
         location.reload();
         console.log(resp);
       } catch (err) {
