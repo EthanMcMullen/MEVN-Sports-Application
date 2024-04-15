@@ -134,7 +134,7 @@ app.get('/api/:league/teams', async (req, res) => { // Returns all events with t
 
 
 
-app.post('/api/addgames', isAuthenticated, hasPermission('admin'), async (req, res) => {
+app.post('/api/addgames',  /*isAuthenticated, hasPermission('admin'),*/ async (req, res) => {
     try {
         const game = new Game(req.body);
         console.log(game)
@@ -150,7 +150,7 @@ app.post('/api/addgames', isAuthenticated, hasPermission('admin'), async (req, r
     }
 })
 
-app.post('/api/addleagues', isAuthenticated, hasPermission('admin'), async (req, res) => {
+app.post('/api/addleagues', /*isAuthenticated, hasPermission('admin'),*/ async (req, res) => {
   try {
       const league = new League(req.body);
       console.log(league)
@@ -167,7 +167,7 @@ app.post('/api/addleagues', isAuthenticated, hasPermission('admin'), async (req,
   }
 })
 
-app.post('/api/addteams', isAuthenticated, hasPermission('admin'), async (req, res) => {
+app.post('/api/addteams',  /*isAuthenticated, hasPermission('admin'),*/ async (req, res) => {
     try {
         const team = new Team(req.body);
         await team.save();
@@ -190,7 +190,7 @@ app.delete('/api/:name/:league/deleteteams', async (req, res) => {
 });
 
 
-app.delete('/api/deletegames/:id', isAuthenticated, hasPermission('admin'), async(req,res)=>{
+app.delete('/api/deletegames/:id',  /*isAuthenticated, hasPermission('admin'),*/ async(req,res)=>{
   const gameId = req.params.id;
   console.log("ID to be deleted: " + gameId)
   try {  
@@ -203,7 +203,7 @@ app.delete('/api/deletegames/:id', isAuthenticated, hasPermission('admin'), asyn
   }
 })
 
-app.delete('/api/:name/deleteleagues/', isAuthenticated, hasPermission('admin'), async(req,res)=>{
+app.delete('/api/:name/deleteleagues/',  /*isAuthenticated, hasPermission('admin'),*/ async(req,res)=>{
   const leagueName = req.params.name;
   console.log("League to be Deleted: " + leagueName)
   try {  

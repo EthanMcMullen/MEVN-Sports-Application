@@ -7,15 +7,64 @@ import { RouterLink, RouterView } from 'vue-router'
     <header>
       <div class="wrapper">
         <nav>
-          <RouterLink to="/">Home</RouterLink> |
-          <RouterLink to="/admin">Admin</RouterLink> |
-          <RouterLink to="/login">Login</RouterLink> 
+          <RouterLink to="/">Schedule</RouterLink> |
+          <RouterLink to="/admin" v-if="checkRole === 'admin'">Admin | </RouterLink> 
+          <RouterLink to="/login" v-if="!isLoggedIn">Login</RouterLink>
+          <RouterLink to="login" v-if="isLoggedIn" @click="logout">Logout</RouterLink>
         </nav>
       </div>
     </header>
     <RouterView />
   </div>
 </template>
+
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+import HomeView from './views/HomeView.vue'
+import store from './stores'
+import { mapActions } from 'vuex';
+import AuthService from '@/services/AuthService';
+import { onMounted } from 'vue';
+import router from './router';
+
+
+export default {
+  
+    computed: {
+      isLoggedIn() {
+        return this.$store.state.user.isLoggedIn; // Example for Vuex
+      },
+      username() {
+        // Optionally, you can display the username if available
+        return this.$store.state.user.username; // Example for Vuex
+      },
+      checkRole(){
+        try {
+          let token = localStorage.getItem('token')
+          token = AuthService.decodeToken(token)
+          console.log(token.role)
+          return token.role
+        } catch (error) {
+          return "user"
+        }
+      },
+      
+      
+      
+    },
+    methods:{
+      ...mapActions(['logoutUser']),
+      async logout(){
+        await this.$store.dispatch('logoutUser')
+        
+      },
+      
+      
+    }
+  };
+
+
+</script>
 
 <style>
 #layout {

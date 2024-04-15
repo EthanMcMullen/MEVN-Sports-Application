@@ -10,7 +10,7 @@ import { ref } from 'vue'
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
 
-  <div class="home">
+  <div class="home" v-if="checkRole === 'admin'">
     <h1>Create New League?</h1>
     <br>
     <LeaguePost />
@@ -28,6 +28,30 @@ import { ref } from 'vue'
 
 </template>
 
+<script>
+
+import AuthService from '@/services/AuthService';
+
+export default {
+  
+  computed: {
+    checkRole(){
+      try {
+        let token = localStorage.getItem('token')
+        token = AuthService.decodeToken(token)
+        console.log(token.role)
+        return token.role
+      } catch (error) {
+        return "user"
+      }
+    },
+    
+    
+    
+  },
+};
+      
+</script>
 <style scoped>
 .events {
   display: flex;

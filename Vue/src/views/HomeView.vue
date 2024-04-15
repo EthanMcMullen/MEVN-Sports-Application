@@ -63,8 +63,8 @@
 
           <div class="field" style="padding-top: 20px;">
             <div class="control">
-              <button v-if="selectedTeam" class="button is-danger" style="padding: 10px 20px; margin-bottom: 10px;" @click="deleteTeam(selectedTeam)">Delete Team?</button>
-              <button v-if="selectedLeague" class="button is-danger" style="padding: 10px 20px; margin-bottom: 10px;" @click="deleteLeague(selectedLeague)">Delete League?</button>
+              <div v-if="this.role === 'admin'"><button v-if="selectedTeam" class="button is-danger" style="padding: 10px 20px; margin-bottom: 10px;" @click="deleteTeam(selectedTeam)">Delete Team?</button></div>
+              <div v-if="this.role === 'admin'"><button v-if="selectedLeague" class="button is-danger" style="padding: 10px 20px; margin-bottom: 10px;" @click="deleteLeague(selectedLeague)">Delete League?</button></div>
               <button class="button is-primary" style="padding: 10px 20px; margin-bottom: 10px;" @click="fetchGames">Submit</button>
             </div>
           </div>
@@ -123,6 +123,8 @@
 
 <script>
 import axios from 'axios';
+import AuthService from '@/services/AuthService';
+
 
 export default {
   data() {
@@ -136,10 +138,21 @@ export default {
       showAdvancedFiltering: false,
       startDate: '',
       endDate: '',
-      eventType: ''
+      eventType: '',
+      role: ''
     };
   },
   methods: {
+    checkRole(){
+      try {
+        let token = localStorage.getItem('token')
+        token = AuthService.decodeToken(token)
+        console.log("role: " + token.role)
+        this.role = token.role;
+      } catch (error) {
+        return "user"
+      }
+    },
     toggleAdvancedFiltering() {
       this.showAdvancedFiltering = !this.showAdvancedFiltering;
     },
@@ -224,6 +237,7 @@ export default {
   },
   mounted() {
     this.fetchLeagues();
+    this.checkRole();
   }
 };
 </script>

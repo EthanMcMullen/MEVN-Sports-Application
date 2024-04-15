@@ -1,5 +1,7 @@
 // store/user.js
 import AuthService from '@/services/AuthService'; // Assuming AuthService is imported and available
+import axios from 'axios';
+
 
 export default {
     state: {
@@ -38,10 +40,14 @@ export default {
                 throw error;
             }
         },
-        logoutUser({ commit }) {
+        async logoutUser({ commit }) {
             // Remove the token from local storage
             localStorage.removeItem('token');
-            
+            // const response = await axios.get(`http://localhost:3000/logout`, {
+            //     headers: {
+            //       'Content-Type': 'application/x-www-form-urlencoded'
+            //     }
+            //   })
             // Commit the clearUser mutation to reset the user state
             commit('clearUser');
             console.log("User Logged Out")
