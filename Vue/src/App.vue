@@ -56,6 +56,7 @@ export default {
       ...mapActions(['logoutUser']),
       async logout(){
         await this.$store.dispatch('logoutUser')
+        location.reload();
         
       },
       
