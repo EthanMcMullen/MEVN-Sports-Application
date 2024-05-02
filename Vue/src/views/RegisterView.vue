@@ -46,7 +46,7 @@ export default {
             }
         console.log(newUser)
         location.reload()
-          const resp = await axios.post('http://localhost:3000/auth/register', newUser,
+          const resp = await axios.post('https://mevn-sports-application2.onrender.com/auth/register', newUser,
           {headers:{'Content-Type':'application/x-www-form-urlencoded'}});
           console.log(resp.data)
           this.$router.push('/login');

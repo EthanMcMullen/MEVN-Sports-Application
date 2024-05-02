@@ -3,12 +3,9 @@
 
 
   <form>
-          <div class="columns">
-              <div class="column">
-                  <label class="label">Sportname</label>
+                  <label class="label">Sport Name</label>
                   <input class="input" type="text" id="name" placeholder="Eg. Basketball" v-model="league.name">
-              </div>
-              <div class="column">
+                  <br><br><br>
                 <label class="label">Gender</label>
                 <div class="select is-fullwidth">
                     <select v-model="league.gender">
@@ -17,18 +14,15 @@
                     <option value="">CO-ED</option>
                     </select>
                 </div>
-            </div>
-              <div class="column">
+                <br><br><br>
                   <label class="label">Age</label>
                   <input class="input" type="text" id="age" placeholder="U20, Senior ext." v-model="league.age">
-              </div>
-              <div class="column">
+                  <br><br><br>
                   <label class="label">Division</label>
                   <input class="input" type="number" id="age" placeholder="Enter Division 0 = none" v-model="league.division">
-              </div>
-          </div>
+                  <br><br><br>
           
-  <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Submit</button>
+  <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Create League</button>
 </form>
 </template>
 
@@ -59,7 +53,7 @@ export default {
         if(!this.league.gender) {genderString = ""} else {genderString = (" " + newLeague.gender)}
         let LeagueName = (newLeague.age + genderString + " " + newLeague.name + divisionString)
         console.log(newLeague)
-        const resp = await axios.post('http://localhost:3000/api/addleagues', {name : LeagueName}, 
+        const resp = await axios.post('https://mevn-sports-application2.onrender.com/api/addleagues', {name : LeagueName}, 
         {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
         console.log(resp.data)
         location.reload();

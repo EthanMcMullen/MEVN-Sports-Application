@@ -3,21 +3,17 @@
 
 
 <form>
-        <div class="columns">
-            <div class="column">
                 <label class="label">Team Name</label>
                 <input class="input" type="text" id="name" placeholder="Eg. Bayviewglen" v-model="team.team_name">
-            </div>
-            <div class="column"> 
+                <br><br><br>
                 <label class="label">League</label>
                 <div class="select is-fullwidth">
                 <select v-model="team.league">
                     <option v-for="league in leagues" :key="league.id" :value="league.name">{{ league.name }}</option>
                 </select>
                 </div>
-            </div>
-        </div>
-    <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Submit</button>
+                <br><br><br>
+    <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Create Team</button>
 </form>
 </template>
 
@@ -56,7 +52,7 @@ data() {
 
           
         console.log(newTeam)
-        const resp = await axios.post('http://localhost:3000/api/addteams', {
+        const resp = await axios.post('https://mevn-sports-application2.onrender.com/api/addteams', {
             name : newTeam.team_name,
             division : newTeam.division,
             description : this.team.description,
@@ -69,14 +65,14 @@ data() {
 },
 async mounted() {
     try {
-        const resp = await axios.get('http://localhost:3000/api/leagues');
+        const resp = await axios.get('https://mevn-sports-application2.onrender.com/api/leagues');
         this.leagues = resp.data;
     } catch (error) {
         console.error(error);
     }
 
     try {
-        const response = await axios.get('http://localhost:3000/api/teams');
+        const response = await axios.get('https://mevn-sports-application2.onrender.com/api/teams');
         this.teams = response.data;
     } catch (error) {
         console.error(error);

@@ -11,19 +11,21 @@ import { ref } from 'vue'
 
 
   <div class="home" v-if="checkRole === 'admin'">
-    <h1>Create New League?</h1>
-    <br>
-    <LeaguePost />
-    <br>
-    <br>
-    <h1>Create New Team?</h1>
-    <br>
-    <TeamPost />
-    <br>
-    <br>
-    <h1>Create New Game?</h1>
-    <br>
-    <GamePost />
+
+    <div class="columns">
+      <div class="column">
+        <LeaguePost/>
+      </div>
+      <div class="column">
+        <TeamPost />
+      </div>
+      <div class="column">
+        <GamePost />
+      </div>
+    </div>
+
+    
+    
   </div>
 
 </template>
@@ -40,7 +42,10 @@ export default {
         let token = localStorage.getItem('token')
         token = AuthService.decodeToken(token)
         console.log(token.role)
-        return token.role
+        if(token.role === 'admin') {
+          return token.role
+        }
+        this.$router.push({ name: 'home' });
       } catch (error) {
         return "user"
       }

@@ -2,7 +2,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <div>
     <div class="columns">
-      <div class="column is-one-quarter" style="border-right: 1px solid #ccc; padding-right: 20px;">
+      <div class="column is-one-quarter">
+        <div class="hero has-background-link-light is-fullheight">
         <div class="section">
           <div class="field">
             <label class="label">Select League:</label>
@@ -22,7 +23,7 @@
                 <select v-model="selectedTeam">
                   <option v-for="team in teams" :key="team.id" :value="team.name">{{ team.name }}</option>
                 </select>
-              </div>
+               </div>
             </div>
           </div>
 
@@ -70,6 +71,7 @@
           </div>
         </div>
       </div>
+      </div>
 
       <div class="column">
         <table class="table is-fullwidth is-hoverable" v-if="games.length">
@@ -97,7 +99,7 @@
 
         <div v-if="selectedGame">
           <div class="box">
-            <p>Name: {{ selectedGame.name }}</p>
+            <p>Team Name: {{ selectedGame.name }}</p>
             <p>Date: {{ selectedGame.date }}</p>
             <p>Time: {{ selectedGame.time }}</p>
             <p>Location: {{ selectedGame.location }}</p>
@@ -169,15 +171,15 @@ export default {
       this.showAdvancedFiltering = !this.showAdvancedFiltering;
     },
     async fetchLeagues() {
-      const resp = await axios.get('http://localhost:3000/api/leagues');
+      const resp = await axios.get('https://mevn-sports-application2.onrender.com/api/leagues');
       this.leagues = resp.data;
     },
     async fetchTeams() {
-      const resp = await axios.get(`http://localhost:3000/api/${this.selectedLeague}/teams`);
+      const resp = await axios.get(`https://mevn-sports-application2.onrender.com/api/${this.selectedLeague}/teams`);
       this.teams = resp.data;
     },
     async fetchGames() {
-      const resp = await axios.get(`http://localhost:3000/api/${this.selectedTeam}/games`);
+      const resp = await axios.get(`https://mevn-sports-application2.onrender.com/api/${this.selectedTeam}/games`);
       this.games = resp.data;
       this.originalGames = resp.data
       this.filterGames(); // Filter games after fetching
@@ -219,7 +221,7 @@ export default {
       setTimeout(async () => {
           console.log("Made it here")
           axios.defaults.withCredentials = true;
-          await axios.post(`http://localhost:3000/notification`, this.selectedData, {
+          await axios.post(`https://mevn-sports-application2.onrender.com/notification`, this.selectedData, {
             headers: {
               "Access-Crontrol-Allow_Origin": "*",
             }
@@ -230,7 +232,7 @@ export default {
     },
     async deleteGame(deletedGame) {
       try {
-        const resp = await axios.delete(`http://localhost:3000/api/deletegames/${deletedGame.id}`);
+        const resp = await axios.delete(`https://mevn-sports-application2.onrender.com/api/deletegames/${deletedGame.id}`);
         location.reload();
         console.log(resp);
       } catch (err) {
@@ -239,7 +241,7 @@ export default {
     },
     async deleteTeam(teamName) {
       try {
-        await axios.delete(`http://localhost:3000/api/${teamName}/${this.selectedLeague}/deleteteams`);
+        await axios.delete(`https://mevn-sports-application2.onrender.com/api/${teamName}/${this.selectedLeague}/deleteteams`);
 
         for (const game of this.games) {
           if (game.name === teamName && game.name === this.selectedLeague) {
@@ -254,7 +256,7 @@ export default {
     },
     async deleteLeague(leagueName) {
       try {
-        await axios.delete(`http://localhost:3000/api/${encodeURIComponent(leagueName)}/deleteleagues`);
+        await axios.delete(`https://mevn-sports-application2.onrender.com/api/${encodeURIComponent(leagueName)}/deleteleagues`);
 
         for (const team of this.teams) {
           if (team.league === leagueName) {
