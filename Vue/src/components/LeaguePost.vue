@@ -56,7 +56,6 @@ export default {
         const resp = await axios.post('https://mevn-sports-application2.onrender.com/api/addleagues', {name : LeagueName}, 
         {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
         console.log(resp.data)
-        location.reload();
     }
   } 
 }

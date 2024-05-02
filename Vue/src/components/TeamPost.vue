@@ -60,7 +60,6 @@ data() {
         }, 
         {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
         console.log(resp.data)
-        location.reload();
     }
 },
 async mounted() {
