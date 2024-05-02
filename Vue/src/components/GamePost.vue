@@ -90,6 +90,7 @@
         const resp = await axios.post('https://mevn-sports-application2.onrender.com/api/addgames', newGame, {
         }, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
         console.log(resp.data);
+        location.reload();
         }, filterTeams() {
             this.filteredTeams = this.teams.filter(team => team.league === this.game.league);
         }
