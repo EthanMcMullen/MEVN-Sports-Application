@@ -107,6 +107,13 @@
             <div class="map">
               
             </div>
+            
+            <div class="column">
+              <label class="label">Email For Notification</label>
+              <input class="input" type="email" id="email" v-model="selectedData.email">
+            </div>
+            
+            <button class="button button-large full-width is-danger" type="button" @click="remindGame(selectedGame)">Remind Me?</button>
             <button class="button button-large full-width is-primary" type="button" @click="deleteGame(selectedGame)">Delete Game?</button>
           <div>
             <iframe width="100%" height="200" style="border:0" referrerpolicy="no-referrer-when-downgrade" :src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyC1J8rbjY3B-Y-dzoWU7jl6hAW4jAh-yRk&q=' + encodeURIComponent(selectedGame.location)" allowfullscreen></iframe>
@@ -139,7 +146,12 @@ export default {
       startDate: '',
       endDate: '',
       eventType: '',
-      role: ''
+      role: '',
+      selectedData: {
+        email: '',
+        date: '',
+        res: ''
+      }
     };
   },
   methods: {
@@ -194,6 +206,27 @@ export default {
     },
     openDetails(game) {
       this.selectedGame = game;
+    },
+
+    async remindGame(remindedGame) {
+      console.log(remindedGame)
+      console.log(email)
+      let date = remindedGame.date.substring(0,4) + remindedGame.date.substring(5,7) + remindedGame.date.substring(8) + remindedGame.time.substring(0,2) + remindedGame.time.substring(3)
+      console.log(date)
+      this.selectedData.date = remindedGame.date + "T" + remindedGame.time;
+      console.log(this.selectedData.date)
+
+      setTimeout(async () => {
+          console.log("Made it here")
+          axios.defaults.withCredentials = true;
+          await axios.post(`http://localhost:3000/notification`, this.selectedData, {
+            headers: {
+              "Access-Crontrol-Allow_Origin": "*",
+            }
+          });
+      }, date);
+
+      alert("Email Scheduled Sucessfully!")
     },
     async deleteGame(deletedGame) {
       try {

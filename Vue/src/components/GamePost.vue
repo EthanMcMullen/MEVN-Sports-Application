@@ -69,6 +69,9 @@
     },
         methods: {
             async addToAPI() {
+            
+            await this.$store.dispatch('rehydrateAuthenticationState', { email: this.email, password: this.password });
+            
 
                 const gamesResponse = await axios.get('http://localhost:3000/api/games');
                 let currHighestId = 0
@@ -94,6 +97,7 @@
 
         console.log(newGame);
 
+        
         const resp = await axios.post('http://localhost:3000/api/addgames', newGame, {
         }, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
         console.log(resp.data);

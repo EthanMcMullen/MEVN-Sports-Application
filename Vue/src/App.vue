@@ -7,7 +7,8 @@ import { RouterLink, RouterView } from 'vue-router'
     <header>
       <div class="wrapper">
         <nav>
-          <RouterLink to="/">Schedule</RouterLink> |
+          <RouterLink to="/">Home</RouterLink> |
+          <RouterLink to="/schedule">Schedule</RouterLink> |
           <RouterLink to="/admin" v-if="checkRole === 'admin'">Admin | </RouterLink> 
           <RouterLink to="/login" v-if="!isLoggedIn">Login</RouterLink>
           <RouterLink to="login" v-if="isLoggedIn" @click="logout">Logout</RouterLink>

@@ -44,9 +44,9 @@
       async login() {
         try {
           
-          // await this.loginUser({ email: this.email, password: this.password });
+          //await this.loginUser({ email: this.email, password: this.password });
           await this.$store.dispatch('loginUser', { email: this.email, password: this.password });
-
+          
           // If login successful, redirect to dashboard or desired page
           this.$router.push({ name: 'home' });
         } catch (error) {

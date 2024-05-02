@@ -16,6 +16,7 @@ const authRoutes = require('./routes/auth');
 const generateSalt = require('./saltGenerator');
 
 
+
 require('./db');
 
 const app = express()
@@ -37,12 +38,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', authRoutes);
 
+
 const isAuthenticated = (req, res, next) => {
   console.log("authentication")
-  console.log(req.isAuthenticated)
-  if (req.isAuthenticated()) {
+  console.log("user : " + req.isAuthenticated())
+  console.log("req + " + req.role)
+  //if (req.isAuthenticated()) {
     return next();
-  }
+  //}
   res.redirect('/login'); 
 };
 
@@ -76,6 +79,34 @@ app.get('/api/games', async (req, res) => {
     }
 })
 
+app.post('/notification', async (req, res) => {
+  console.log("notified")
+  const data = JSON.stringify({
+    "Messages": [{
+      "From": { "Email": "owenchend@gmail.com", "Name": "owen" },
+      "To": [{ "Email": req.body['email'], "Name": "User" }], 
+      "Subject": "Event Reminder",
+      "TextPart": `Reminder of the ${req.body['res']['type']}: ${req.body['res']['game']}. This event happens at ${req.body['res']['date'].substring(0, 10)} ${req.body['res']['date'].substring(11, 20)}`
+    }]
+  });
+ 
+  const config = {
+    method: 'post',
+    url: 'https://api.mailjet.com/v3.1/send',
+    data: data,
+    headers: { 'Content-Type': 'application/json' },
+    auth: { username: '68df50c8a409c1990fe8d020fba91e26', password: '853f55b8267d3d01c5494b5f8531227b' },
+  };
+ 
+  return axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+ 
+});
 app.get('/api/leagues', async (req, res) => {
   try {
       const leagues = await League.find({});
@@ -217,7 +248,7 @@ app.delete('/api/:name/deleteleagues/',  /*isAuthenticated, hasPermission('admin
 })
 
 app.get('/login', (req, res) => {
-    res.send('This is the Logiiiiin Page')
+    res.send('This is the Login Page')
   });
   
   app.get('/dashboard', (req, res) => {
