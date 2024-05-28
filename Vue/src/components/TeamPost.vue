@@ -13,7 +13,7 @@
                 </select>
                 </div>
                 <br><br><br>
-    <button class="button button-large full-width is-primary" type="button" @click="addToAPI">Create Team</button>
+2.
 </form>
 </template>
 
@@ -46,7 +46,7 @@ data() {
             });
 
             if (teamExists) {
-                alert(`${newTeam.team_name} in ${newTeam.league} has already been created`);
+                //alert(`${newTeam.team_name} in ${newTeam.league} has already been created`);
                 return;
             }
 
